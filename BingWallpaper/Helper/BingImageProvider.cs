@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace BingWallpaper
 {
@@ -14,6 +15,8 @@ namespace BingWallpaper
             string baseUri = "https://www.bing.com";
             using (var client = new HttpClient())
             {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12; // Use SecurityProtocolType.Ssl3 if needed for compatibility reasons
                 using (var jsonStream = await client.GetStreamAsync("http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US"))
                 {
                     var ser = new DataContractJsonSerializer(typeof(Result));
