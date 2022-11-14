@@ -29,6 +29,7 @@ namespace BingWallpaper
 
             AddTrayIcons();
             
+            /*
             // Set wallpaper every 24 hours
             var timer = new System.Timers.Timer();
             timer.Interval = 1000 * 60 * 60 * 24; // 24 hours
@@ -39,6 +40,22 @@ namespace BingWallpaper
 
             // Set wallpaper on first run
             SetWallpaper();
+            */
+
+            // Set wallpaper after 10 seconds
+            var timer1 = new System.Timers.Timer();
+            timer1.Interval = 1000 * 20; // refresh after 20 sec to avoid unready internet connection
+            timer1.AutoReset = false;
+            timer1.Enabled = true;
+            timer1.Elapsed += (s, e) => SetWallpaper();
+            // timer.Start();
+
+            // Auto close program after 60 seconds
+            var timer2 = new System.Timers.Timer();
+            timer2.Interval = 1000 * 60; // exit after 60 sec to save memory
+            timer2.AutoReset = false;
+            timer2.Enabled = true;
+            timer2.Elapsed += (s, e) => Application.Exit();
         }
 
         protected override void OnLoad(EventArgs e)
